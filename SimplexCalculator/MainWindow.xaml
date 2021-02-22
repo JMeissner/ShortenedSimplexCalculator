@@ -1,0 +1,20 @@
+﻿<Window x:Class="SimplexCalculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimplexCalculator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TextBlock Name="StepText" HorizontalAlignment="Left" Margin="26,107,0,0" TextWrapping="Wrap" Text="Step" VerticalAlignment="Top" Height="233" Width="728" FontFamily="Consolas"/>
+        <Button Content="Dual" HorizontalAlignment="Left" Height="39" Margin="217,358,0,0" VerticalAlignment="Top" Width="246" Click="Button_Dual"/>
+        <Button Content="Primal" HorizontalAlignment="Left" Height="39" Margin="507,358,0,0" VerticalAlignment="Top" Width="260" Click="Button_Primal"/>
+        <Button Content="Clear" HorizontalAlignment="Left" Height="39" Margin="26,358,0,0" VerticalAlignment="Top" Width="48" Click="Button_Clear"/>
+        <TextBox Name="function" HorizontalAlignment="Left" Height="25" Margin="25,12,0,0" TextWrapping="Wrap" Text="3x1 +4x2" VerticalAlignment="Top" Width="255"/>
+        <TextBox Name="st" HorizontalAlignment="Left" Height="90" Margin="319,12,0,0" TextWrapping="Wrap" Text="3x1 +2x2 =1200&#xD;&#xA;5x1 +10x2 =3000&#xD;&#xA;0x1 +0,5x2 =125" VerticalAlignment="Top" Width="435" Grid.RowSpan="16" AcceptsReturn="True" />
+        <Label Content="s.t." HorizontalAlignment="Left" Margin="285,11,0,0" VerticalAlignment="Top" Width="34"/>
+        <Button Content="Setup" HorizontalAlignment="Left" Height="29" Margin="27,73,0,0" VerticalAlignment="Top" Width="104" Click="Button_Setup"/>
+
+    </Grid>
+</Window>

@@ -244,7 +244,7 @@ namespace SimplexCalculator
             }
 
             toWrite += "\n \n";
-            toWrite += "Pivot Element at: (" + r + "," + s + ")"; 
+            toWrite += "Pivot Element at: (" + r + "," + s + ")";
 
             StepText.Text = toWrite;
         }
@@ -263,7 +263,7 @@ namespace SimplexCalculator
                 {
                     if (i != r && j != s)
                     {
-                        tableau[i][j] = oldtableau[i][j] - ((oldtableau[i][s] * oldtableau[r][j]) / ars);
+                        tableau[i][j] = (oldtableau[i][j] - ((oldtableau[i][s] * oldtableau[r][j]) / ars)).Reduce();
                     }
                 }
             }
@@ -288,14 +288,14 @@ namespace SimplexCalculator
                 {
                     if(i == r && j == s)
                     {
-                        tableau[i][j] = 1 / ars;
+                        tableau[i][j] = (1 / ars).Reduce();
                     }else if(i == r)
                     {
-                        tableau[i][j] = tableau[i][j] / ars;
+                        tableau[i][j] = (tableau[i][j] / ars).Reduce();
                     }
                     else if(j == s)
                     {
-                        tableau[i][j] = tableau[i][j] / (-1 * ars);
+                        tableau[i][j] = (tableau[i][j] / (-1 * ars)).Reduce();
                     }
                 }
             }
@@ -400,7 +400,7 @@ namespace SimplexCalculator
 
             for(int j = 0; j < tableau[0].Length - 1; j++)
             {
-                if((tableau[0][j]/tableau[r][j]) > Value && (tableau[0][j] / tableau[r][j]) < 0)
+                if(tableau[r][j] != 0 && (tableau[0][j]/tableau[r][j]) > Value && (tableau[0][j] / tableau[r][j]) < 0)
                 {
                     pvtcol = j;
                     Value = (tableau[0][j] / tableau[r][j]);

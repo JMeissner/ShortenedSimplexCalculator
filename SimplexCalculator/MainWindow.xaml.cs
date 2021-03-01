@@ -104,6 +104,8 @@ namespace SimplexCalculator
                         to = to.Replace("+", "");
                     if (to.Trim().Equals(""))
                         to = "1";
+                    if (to.Trim().Equals("-"))
+                        to = "-1";
                     tableau[0][l] = Fraction.FromString(to) * -1;
                 }
                 else
@@ -129,6 +131,8 @@ namespace SimplexCalculator
                             xl = xl.Replace("+", "");
                         if (xl.Trim().Equals(""))
                             xl = "1";
+                        if (xl.Trim().Equals("-"))
+                            xl = "-1";
                         tableau[i+1][j] = Fraction.FromString(xl);
                     }
                     else if (restSpl[j].Contains("="))
@@ -151,6 +155,72 @@ namespace SimplexCalculator
                 labelX[i] = "x" + (i + 1);
                 labelY[i] = "y" + (i + 1);
             }
+
+            DrawTableau();
+        }
+        private void Button_Warmstart(object sender, RoutedEventArgs e)
+        {
+            string temp = Microsoft.VisualBasic.Interaction.InputBox("Enter Warmstart restriction", "Warmstart", "");
+
+            if (temp == "")
+                return;
+
+            string[] splitW = temp.Split(' ');
+
+            DeepCopyTableau();
+
+            tableau = new Fraction[oldtableau.Length + 1][];
+
+            for (int i = 0; i < tableau.Length - 1; i++)
+            {
+                tableau[i] = new Fraction[oldtableau[0].Length];
+                for (int j = 0; j < oldtableau[0].Length; j++)
+                {
+                    tableau[i][j] = new Fraction(oldtableau[i][j].Numerator, oldtableau[i][j].Denominator);
+                }
+            }
+
+            tableau[tableau.Length - 1] = new Fraction[oldtableau[0].Length];
+
+            for (int j = 0; j < splitW.Length; j++)
+            {
+                if (splitW[j].Contains("x"))
+                {
+                    int xi = splitW[j].IndexOf('x');
+                    string xl = splitW[j].Remove(xi);
+                    if (xl.Contains("+"))
+                        xl = xl.Replace("+", "");
+                    if (xl.Trim().Equals(""))
+                        xl = "1";
+                    if (xl.Trim().Equals("-"))
+                        xl = "-1";
+                    tableau[tableau.Length - 1][j] = Fraction.FromString(xl);
+                }
+                else if (splitW[j].Contains("="))
+                {
+                    string xl = splitW[j].Replace("=", "");
+                    tableau[tableau.Length - 1][j] = Fraction.FromString(xl);
+                }
+                else
+                {
+                    tableau[tableau.Length - 1][j] = Fraction.FromString(splitW[j]);
+                }
+            }
+
+            string[] newXL = new string[labelX.Length + 1];
+            string[] newYL = new string[labelY.Length + 1];
+
+            for(int i = 0; i < labelX.Length; i++)
+            {
+                newXL[i] = labelX[i];
+                newYL[i] = labelY[i];
+            }
+
+            newXL[labelX.Length] = "s1";
+            newYL[labelY.Length] = "t1";
+
+            labelX = newXL;
+            labelY = newYL;
 
             DrawTableau();
         }
